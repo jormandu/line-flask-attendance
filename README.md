@@ -1,17 +1,26 @@
-# LINE Flask Attendance Bot
+# LINE Bot 打卡功能範本
 
-簡單的上下班打卡 LINE bot，使用 Python Flask 實作，部署於 Render。
+這是一個使用 Python Flask 搭配 LINE Messaging API 的上下班打卡 Bot 專案。
 
-## 🚀 快速部署步驟
+## ✅ 功能說明
 
-1. 登入 [https://render.com](https://render.com)
-2. 新增 Web Service，選擇上傳 ZIP 或從 GitHub 部署
+- 使用者輸入「上班」、「下班」，回覆打卡時間
+- 可部署於 Render 免費主機平台
+
+## 🚀 Render 部署步驟
+
+1. 建立 GitHub Repo，推送此專案
+2. 到 [Render.com](https://render.com) 建立 Web Service
 3. 設定：
    - Build Command: `pip install -r requirements.txt`
    - Start Command: `python app.py`
-4. 設定環境變數：
-   - `LINE_CHANNEL_ACCESS_TOKEN`
-   - `LINE_CHANNEL_SECRET`
-5. 在 LINE Developer Console 設定 Webhook URL（例如 https://你的網址.onrender.com/webhook）
+   - 環境變數：
+     - `LINE_CHANNEL_ACCESS_TOKEN`
+     - `LINE_CHANNEL_SECRET`
+4. 設定 LINE Webhook URL 至 `/webhook`
 
-完成後即可使用「上班」/「下班」打卡指令
+## 📲 使用說明
+
+- 在 LINE 對話框輸入：
+  - `上班` → 回覆打卡時間
+  - `下班` → 回覆打卡時間
