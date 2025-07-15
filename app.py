@@ -1,11 +1,16 @@
 from flask import Flask, request, abort
+from datetime import datetime
+import sqlite3
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-import os
-from datetime import datetime
-import sqlite3
 
+line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
+handler = WebhookHandler("YOUR_CHANNEL_SECRET")
+
+app = Flask(__name__)
+
+# SQLite 功能
 def init_db():
     conn = sqlite3.connect("records.db")
     cursor = conn.cursor()
@@ -28,11 +33,7 @@ def save_record(user_id, action, timestamp):
     conn.commit()
     conn.close()
 
-app = Flask(__name__)
 init_db()
-
-line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
-handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
 
 @app.route("/")
 def home():
@@ -68,6 +69,3 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=reply)
     )
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
